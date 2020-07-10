@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script type="text/javascript" src="http://www.chartjs.org/dist/2.9.3/Chart.min.js"></script>
+</head>
+<style>
+	canvas{			/* 글씨가 선택되지 않도록 */
+		-moz-user-select : none;		/* 파이어폭스 브라우저 사용시 */
+		-webkit-user-select : none;		/* 사파리 브라우저 사용시 */
+		-ms-user-select : none;			/* 익스플러워 브라우저 사용시 */
+		user-select : none; 			/* 표준 브라우저*/
+	}
+</style>
+
+<body>
+<input type="button" value="도넛그래프" onclick="graphprint('doughnut')">
+<input type="button" value="파이그래프" onclick="graphprint('pie')">
+
+
+
+<div id = "container" style="width:75%;">
+	<canvas id="canvas"></canvas>
+	</div>
+	<script>
+	var MONTHS=["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"];
+	window.chartColors = {
+			red : 'rgb(255,99,132)',
+			orange: 'rgb(255,159,4)',
+			yellow:'rgb(255,205,56)',
+			green:'rgb(75,192,192)',
+			blue:'rgb(54,162,235)',
+			purple:'rgb(153,102,255)',
+			grey:'rgb(201,203,207)'
+	};
+	var randomScalingFactor = function(){
+		return Math.round(Math.random()*100);	//0~100 까지의 임의의값
+	};
+	function graphprint(type){
+		var name=(type=='pie'?'파이그래프':'도넛그래프');
+	var config={
+			type:type,
+			data:{
+					datasets:[{
+						data:[
+							randomScalingFactor(),
+							randomScalingFactor(),
+							randomScalingFactor(),
+							randomScalingFactor(),
+							randomScalingFactor(),
+							randomScalingFactor(),
+							randomScalingFactor(),
+							randomScalingFactor(),
+							randomScalingFactor(),
+							randomScalingFactor(),
+							randomScalingFactor(),
+							randomScalingFactor(),
+						],
+						backgroundColor:[
+							window.chartColors.red,
+							window.chartColors.orange,
+							window.chartColors.yellow,
+							window.chartColors.green,
+							window.chartColors.blue,
+							"#FF0000","#00FF00","#0000FF",
+							"#FFFF00","#00FFFF","#FF00FF",
+							"#EEEEEE"
+						],
+						label: '도넛 그래프'
+					
+					}],
+					labels:MONTHS
+			},
+			options:{
+				responsive:true,
+				legend:{position:"bottom"},
+				title : {
+					display:true,
+					text: name+'연습'
+					},
+				animation:{
+					animateScale:true,  // 기능 확인할려면 true와 false 확인 . 작게시작해서 크게 나타남.
+					animateRotate:true
+				}
+				
+			}
+	
+	};
+
+		var ctx=document.getElementById('canvas').getContext('2d');
+		window.myBar = new Chart(ctx,config);
+	}
+
+	</script>
+</body>
+</html>
